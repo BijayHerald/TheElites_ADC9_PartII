@@ -17,4 +17,5 @@ urlpatterns = [
 	path('mobile/search/',product_list_search),			 	 #Path of search
 	path("mobile/loginfirst", not_logged_in_condition)		 #Path of login first condition
 ] 
+	] 
 
