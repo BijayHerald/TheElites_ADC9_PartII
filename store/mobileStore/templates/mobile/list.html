@@ -1,0 +1,29 @@
+
+    {% if request.user.is_not_authenticated %}
+
+      <h1>You are unauthorized to view this page. please login to proceed</h1>
+
+    {%endif%}
+
+
+    {% if request.user.is_authenticated %}
+
+
+{% for product in products%}
+<br>
+
+	
+<img src="{{product.image}}">
+{{product.name}}<br>
+
+
+{{product.Fullprice}} <br>
+{{product.Discountprice}} <br>
+
+<button> <a href="{{product.image.url}}">Download</a> </button> &nbsp; &nbsp;
+<button> <a href="edit/{{product.id}}">Edit</a> </button> &nbsp; &nbsp;
+<button> <a href="delete/{{product.id}}">Delete </a> </button>
+<br> <br>
+{%endfor%}
+
+        {% endif %}
