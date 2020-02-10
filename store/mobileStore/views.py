@@ -3,6 +3,10 @@ from .models import Category, Product
 from django.http import HttpResponse
 from .forms import *
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 
 # View function of index page
@@ -12,6 +16,33 @@ def index_page(request):
 # View function of adding product
 def view_add_product_form(request):
     return render(request,'mobile/add_product.html')
+
+
+# View function of product listing
+def product_list(request):
+    categories = Product.objects.all()
+    return render(request,'mobile/list.html',{
+        'products': categories
+    })
+
+# View function of searching data
+def product_list_search(request):
+    products = Product.objects.filter(name=request.GET['productname'])
+    print(products)
+# Returning list form of saved data 
+    return render(request,'mobile/list.html',{
+        'products': products
+    })
+
+# View function of getting id
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug, available=True)
+
+    return render(request,'mobile/list.html',{
+        'products': product
+    })
+
+
 
 
 
@@ -32,6 +63,21 @@ def product_image_view(request):
   
 def success(request): 
     return HttpResponse('successfully uploaded')    #showing record successfully uploaded result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
